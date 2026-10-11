@@ -1,0 +1,154 @@
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+
+# Distribution / packaging
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+MANIFEST
+.eggs/
+
+# Compiled extensions
+*.so
+*.dylib
+
+# =============================================================================
+# Virtual Environments & Package Managers
+# =============================================================================
+.venv/
+venv/
+env/
+ENV/
+.env.bak
+
+# uv
+# uv.lock is intentionally TRACKED for reproducible installs
+# Uncomment the line below only if this is a library (not an app)
+# uv.lock
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# =============================================================================
+# Environment & Secrets  ← CRITICAL: never commit these
+# =============================================================================
+.env
+.env.*
+!.env.example
+
+# AWS credentials & config
+.aws/
+aws-credentials*
+*_credentials.json
+*_access_key*
+*_secret_key*
+
+# =============================================================================
+# Testing & Coverage
+# =============================================================================
+.pytest_cache/
+.cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.coveragerc
+nosetests.xml
+test-results/
+junit*.xml
+
+# =============================================================================
+# Type Checkers & Linters
+# =============================================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pytype/
+.pyre/
+
+# =============================================================================
+# IDEs & Editors
+# =============================================================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (PyCharm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# =============================================================================
+# Logs & Debugging
+# =============================================================================
+*.log
+logs/
+*.log.*
+npm-debug.log*
+
+# =============================================================================
+# MCP Server
+# =============================================================================
+mcp-server/node_modules/
+mcp-server/dist/
+mcp-server/.env
+
+# =============================================================================
+# Build Artifacts
+# =============================================================================
+*.spec
+
+# =============================================================================
+# Jupyter Notebooks (scratch)
+# =============================================================================
+.ipynb_checkpoints/
+*.ipynb
+
+# =============================================================================
+# Docs Build Output
+# =============================================================================
+docs/_build/
+docs/site/
+site/
+
+# =============================================================================
+# Temporary & Misc
+# =============================================================================
+*.tmp
+*.bak
+*.orig
+*.rej
+.history/
