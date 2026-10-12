@@ -8,6 +8,7 @@ import logging
 from typing import Optional
 
 from agent.providers.base import ModelProvider, ProviderType
+from agent.providers.bedrock import BedrockProvider
 from agent.providers.nvidia import NVIDIAProvider
 from agent.providers.sample import SampleProvider
 from agent.config import get_settings
@@ -46,12 +47,29 @@ def create_provider(
     
     logger.info(f"Creating provider: type={provider_type.value}, model={model}")
     
-    if provider_type == ProviderType.NVIDIA:
+    if provider_type == ProviderType.BEDROCK:
+        return _create_bedrock_provider(model, settings, **kwargs)
+    elif provider_type == ProviderType.NVIDIA:
         return _create_nvidia_provider(model, settings, **kwargs)
     elif provider_type == ProviderType.SAMPLE:
         return _create_sample_provider(model, **kwargs)
     else:
         raise ValueError(f"Unknown provider type: {provider_type}")
+
+
+def _create_bedrock_provider(
+    model: str,
+    settings,
+    **kwargs
+) -> BedrockProvider:
+    """Create AWS Bedrock provider with settings."""
+    region = settings.bedrock_region or settings.aws_region
+    return BedrockProvider(
+        model=model,
+        region=region,
+        profile=settings.aws_profile,
+        **kwargs,
+    )
 
 
 def _create_nvidia_provider(

@@ -87,14 +87,14 @@ uv sync
 Set up the required environment variables for AWS access and model integration:
 
 ```bash
-# AWS credentials (via standard boto3 chain)
+# AWS credentials & region (standard boto3 credential chain)
 export AWS_REGION=us-east-1
-export AWS_PROFILE=default  # or use AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY
+export AWS_PROFILE=default  # or set AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY
 
-# LLM configuration (NVIDIA NIM)
-export LLM_API_KEY=your-nvidia-nim-api-key
-export LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-export LLM_MODEL=nvidia/nemotron-3-super-120b-a12b
+# Model provider (AWS Bedrock using Amazon Nova)
+export MODEL_PROVIDER=bedrock
+export MODEL_NAME=amazon.nova-pro-v1:0
+# export MODEL_NAME=amazon.nova-lite-v1:0  # lighter alternative
 ```
 
 ## Usage

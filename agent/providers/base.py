@@ -13,6 +13,7 @@ from enum import Enum
 class ProviderType(str, Enum):
     """Supported model provider types."""
     NVIDIA = "nvidia"
+    BEDROCK = "bedrock"
     SAMPLE = "sample"
 
 

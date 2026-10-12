@@ -22,12 +22,16 @@ class Settings(BaseSettings):
     
     # Model Provider Configuration
     model_provider: str = Field(
-        default="sample",
-        description="Model provider type: 'nvidia' or 'sample'",
+        default="bedrock",
+        description="Model provider type: 'bedrock', 'nvidia', or 'sample'",
     )
     model_name: str = Field(
-        default="nvidia/nemotron-3-super-120b-a12b",
-        description="Model identifier",
+        default="amazon.nova-pro-v1:0",
+        description="Model identifier (e.g. amazon.nova-pro-v1:0, amazon.nova-lite-v1:0)",
+    )
+    bedrock_region: Optional[str] = Field(
+        default=None,
+        description="AWS region for Bedrock (defaults to aws_region if not specified)",
     )
     nvidia_api_key: Optional[str] = Field(
         default=None,
