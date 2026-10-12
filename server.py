@@ -95,6 +95,13 @@ def create_app() -> FastAPI:
 
 app = create_app() if FastAPI is not None else None
 
+# AWS Lambda Handler (Mangum adapter)
+try:
+    from mangum import Mangum
+    handler = Mangum(app, lifespan="off") if app else None
+except ImportError:
+    handler = None  # type: ignore
+
 
 def run():
     """CLI runner function for console script entry point."""

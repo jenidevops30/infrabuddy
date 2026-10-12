@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: InfraBuddy - Serverless ChatOps Agent on AWS Lambda with Amazon Bedrock
+
+Parameters:
+  ModelProvider:
+    Type: String
+    Default: bedrock
+    Description: Model provider (bedrock, sample)
+  ModelName:
+    Type: String
+    Default: amazon.nova-pro-v1:0
+    Description: Bedrock Model ID
+  SlackBotToken:
+    Type: String
+    NoEcho: true
+    Default: ""
+    Description: Slack Bot OAuth Token (xoxb-...)
+  SlackSigningSecret:
+    Type: String
+    NoEcho: true
+    Default: ""
+    Description: Slack Signing Secret
+  MicrosoftAppId:
+    Type: String
+    Default: ""
+    Description: Microsoft Teams App ID
+  MicrosoftAppPassword:
+    Type: String
+    NoEcho: true
+    Default: ""
+    Description: Microsoft Teams App Secret
+
+Resources:
+  InfraBuddyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      MemorySize: 1024
+      Timeout: 60
+      Environment:
+        Variables:
+          MODEL_PROVIDER: !Ref ModelProvider
+          MODEL_NAME: !Ref ModelName
+          AWS_REGION: !Ref 'AWS::Region'
+          SLACK_BOT_TOKEN: !Ref SlackBotToken
+          SLACK_SIGNING_SECRET: !Ref SlackSigningSecret
+          MICROSOFT_APP_ID: !Ref MicrosoftAppId
+          MICROSOFT_APP_PASSWORD: !Ref MicrosoftAppPassword
+      Policies:
+        # Read-Only Telemetry Policies
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - ec2:Describe*
+                - elasticloadbalancing:Describe*
+                - autoscaling:Describe*
+                - rds:Describe*
+                - cloudwatch:GetMetricData
+                - cloudwatch:GetMetricStatistics
+                - cloudwatch:ListMetrics
+                - bedrock:InvokeModel
+                - bedrock:InvokeModelWithResponseStream
+                - bedrock:Converse
+              Resource: '*'
+      Events:
+        RootApi:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+Outputs:
+  ApiUrl:
+    Description: "InfraBuddy API Gateway Webhook URL"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  SlackEventsUrl:
+    Description: "Slack Request URL"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/slack/events"
+  TeamsMessagesUrl:
+    Description: "Teams Messaging Endpoint"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/teams/messages"
