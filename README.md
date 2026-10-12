@@ -1,6 +1,8 @@
 # InfraBuddy
 
-An AI-powered DevOps sidekick for AWS — collects live infrastructure evidence from EC2, ALB, ASG, RDS, and CloudWatch, then uses an LLM (NVIDIA NIM / Nemotron) to diagnose issues and recommend safe remediation steps.
+An AI-powered DevOps sidekick for AWS — collects live infrastructure evidence from EC2, ALB, ASG, RDS, and CloudWatch, then uses Amazon Bedrock (**Amazon Nova**) to diagnose issues and recommend safe remediation steps.
+
+![InfraBuddy Diagnosis in Action](docs/infrabuddy_terminal_run.jpg)
 
 ## Overview
 
