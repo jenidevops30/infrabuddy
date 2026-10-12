@@ -108,6 +108,38 @@ pytest
 
 This project is designed to be deployed in AWS environments with infrastructure automation and operational monitoring in mind. Adjust deployment configuration to fit your environment, security requirements, and team workflows.
 
+## ChatOps Integration (Slack & Microsoft Teams)
+
+InfraBuddy includes a built-in ChatOps interface supporting both Slack and Microsoft Teams via FastAPI and Bot Framework / Bolt.
+
+### 1. Installation
+Install with ChatOps optional dependencies:
+```bash
+uv sync --extra chatops
+```
+
+### 2. Configure ChatOps Variables
+Copy `.env.example` to `.env` and set:
+- **Slack**: `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET` (and `SLACK_APP_TOKEN` for Socket Mode)
+- **Teams**: `MICROSOFT_APP_ID`, `MICROSOFT_APP_PASSWORD`
+
+### 3. Start the ChatOps Server
+```bash
+uv run uvicorn server:app --host 0.0.0.0 --port 8000 --reload
+# or using console script
+uv run infrabuddy-server
+```
+
+Endpoints available:
+- `GET /health` — Health check
+- `POST /slack/events` — Slack Webhook / Interactivity endpoint
+- `POST /teams/messages` — Microsoft Teams Messaging endpoint
+
+### 4. Bot Commands
+- `/infrabuddy analyze [service]` (Slack) or `@InfraBuddy analyze [service]` (Teams)
+- `/infrabuddy status` or `@InfraBuddy status`
+- `/infrabuddy help` or `@InfraBuddy help`
+
 ## Extension Opportunities
 
 Based on the EKS Troubleshooting Agentic AI ChatOps reference architecture, this project could be extended to include:
@@ -115,8 +147,7 @@ Based on the EKS Troubleshooting Agentic AI ChatOps reference architecture, this
 1. **EKS-specific analysis**: Add modules for EKS cluster, node group, and workload inspection
 2. **MCP server integration**: Connect to EKS MCP server for real-time kubectl command execution
 3. **Knowledge base**: Implement S3 Vectors or similar for storing historical analysis patterns
-4. **ChatOps interface**: Add Slack/Teams integration for collaborative troubleshooting
-5. **Multi-model orchestration**: Use different models for different tasks (analysis vs. embeddings)
+4. **Multi-model orchestration**: Use different models for different tasks (analysis vs. embeddings)
 6. **Agentic workflow**: Implement specialized agents for different AWS service domains
 
 See `ARCHITECTURE.md` and `WORKFLOW.md` for detailed technical documentation.

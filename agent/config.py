@@ -100,6 +100,30 @@ class Settings(BaseSettings):
         description="Enable Prometheus metrics",
     )
 
+    # Slack ChatOps
+    slack_bot_token: Optional[str] = Field(
+        default=None,
+        description="Slack Bot OAuth token (xoxb-...)",
+    )
+    slack_signing_secret: Optional[str] = Field(
+        default=None,
+        description="Slack signing secret for request verification",
+    )
+    slack_app_token: Optional[str] = Field(
+        default=None,
+        description="Slack App-level token for Socket Mode (xapp-...)",
+    )
+
+    # Microsoft Teams ChatOps
+    microsoft_app_id: Optional[str] = Field(
+        default=None,
+        description="Azure Bot App ID",
+    )
+    microsoft_app_password: Optional[str] = Field(
+        default=None,
+        description="Azure Bot App password / client secret",
+    )
+
 
 @lru_cache
 def get_settings() -> Settings:
