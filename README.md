@@ -32,12 +32,23 @@ While the EKS troubleshooting agent focuses specifically on Kubernetes cluster i
 
 ## Project Structure
 
-- `main.py` — Primary analysis script (root)
-- `agent/` — Evidence collection, prompt building, and LLM interaction
-- `aws/` — AWS service modules and client
-- `src/aws_ai_devops_agent/` — Python package containing the console script entry point
-- `ARCHITECTURE.md` — Detailed technical architecture documentation
-- `WORKFLOW.md` — Complete operational workflow documentation
+```
+infrabuddy/
+├── agent/            # Evidence processing, prompts, LLM providers (NVIDIA NIM / Sample)
+├── aws/              # AWS clients and collectors (EC2, ALB, ASG, RDS, CloudWatch, EBS)
+├── chatops/          # Slack Bolt & Microsoft Teams Bot Framework integration
+│   ├── slack/        # Slack app handlers and /slack router
+│   └── teams/        # Teams bot handler and /teams router
+├── tests/            # Test suite (pytest + pytest-asyncio + moto)
+├── mcp-server/       # Model Context Protocol (MCP) server integration
+├── docs/             # Technical guides and implementation plans
+├── main.py           # CLI diagnosis entry point
+├── server.py         # Unified FastAPI ChatOps server
+├── pyproject.toml    # Project dependencies and tool configurations
+├── .env.example      # Environment variables template
+├── ARCHITECTURE.md   # Architectural design documentation
+└── WORKFLOW.md       # Operational workflow documentation
+```
 
 ## Features
 

@@ -37,12 +37,16 @@ chatops = [
 ]
 
 [project.scripts]
-infrabuddy = "infrabuddy.main:main"
+infrabuddy = "main:main"
 infrabuddy-server = "server:run"
 
 [build-system]
-requires = ["uv_build>=0.12.2,<0.13.0"]
-build-backend = "uv_build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agent*", "aws*", "chatops*"]
 
 [tool.ruff]
 line-length = 100
